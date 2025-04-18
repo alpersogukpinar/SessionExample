@@ -9,7 +9,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
     options.Cookie.SameSite = SameSiteMode.None; // 🔑
-    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // 🔑
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // 🔑
 });
 
 // builder.Services.AddCors(options =>
@@ -36,10 +36,21 @@ builder.Services.AddCors(options =>
     });
 });
 
+// builder.Services.AddCors(options =>
+// {
+//     options.AddDefaultPolicy(policy =>
+//     { 
+//         policy.WithOrigins("https://localhost:7041", "http://localhost:5166")
+//             .AllowAnyHeader()
+//             .AllowAnyMethod()
+//             .AllowCredentials(); // 🔑
+//     });
+// });
+
 
 var app = builder.Build();
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 //app.UseCors("AllowFrontend");
 app.UseCors();
 app.UseSession();
