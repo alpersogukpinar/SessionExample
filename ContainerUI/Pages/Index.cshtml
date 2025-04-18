@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Session Cookie Test</h1>
+<button onclick="setSession()">Set Session</button>
+<button onclick="getSession()">Get Session</button>
+<pre id="output"></pre>
+
+<script>
+    //const apiBase = "https://localhost:7174";
+    const apiBase = "http://localhost:5247";
+
+    function setSession() {
+        fetch(`${apiBase}/api/session/set`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(r => r.text())
+            .then(text => document.getElementById('output').textContent = text);
+    }
+
+    function getSession() {
+        fetch(`${apiBase}/api/session/get`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(r => r.text())
+            .then(text => document.getElementById('output').textContent = text);
+    }
+</script>
